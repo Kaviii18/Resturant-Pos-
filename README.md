@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Restaurant POS Frontend — Fix Summary
 
 ## Backend Connection
@@ -115,3 +116,6 @@ npm run dev
 | POST | `/api/config` | Admin JWT | Save restaurant config |
 | POST | `/api/sync` | JWT | Bulk sync all data |
 | GET | `/api/dashboard/stats` | JWT | Dashboard statistics |
+=======
+# Resturant-Pos-
+>>>>>>> 46de3199cb1b24af066c532945b6408df585ea5d
