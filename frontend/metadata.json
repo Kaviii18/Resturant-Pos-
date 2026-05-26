@@ -1,0 +1,6 @@
+{
+  "name": "Restaurant POS & Management",
+  "description": "A complete, modern Restaurant Point of Sale (POS) and Management system with billing, menu management, sales history, analytics, and thermal receipt printing.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

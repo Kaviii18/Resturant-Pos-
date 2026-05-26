@@ -1,0 +1,110 @@
+{
+  "entities": {
+    "MenuItem": {
+      "title": "MenuItem",
+      "description": "Represents an individual food or beverage dish in the catalog",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "price": { "type": "number" },
+        "category": { "type": "string" },
+        "imageUrl": { "type": "string" },
+        "description": { "type": "string" },
+        "isAvailable": { "type": "boolean" }
+      },
+      "required": ["id", "name", "price", "category", "isAvailable"]
+    },
+    "CartItem": {
+      "title": "CartItem",
+      "description": "Represents an selection of a MenuItem and its quantity in an order",
+      "type": "object",
+      "properties": {
+        "menuItem": { "$ref": "MenuItem" },
+        "quantity": { "type": "number" },
+        "notes": { "type": "string" }
+      },
+      "required": ["menuItem", "quantity"]
+    },
+    "Order": {
+      "title": "Order",
+      "description": "Represents a completed past sale register",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "timestamp": { "type": "string" },
+        "subtotal": { "type": "number" },
+        "tax": { "type": "number" },
+        "discount": { "type": "number" },
+        "total": { "type": "number" },
+        "paymentMethod": { "type": "string", "enum": ["Cash", "Card", "UPI", "Mobile Wallet"] },
+        "amountReceived": { "type": "number" },
+        "changeGiven": { "type": "number" },
+        "serviceMode": { "type": "string", "enum": ["Dine-In", "Takeaway"] },
+        "cashier": { "type": "string" }
+      },
+      "required": ["id", "timestamp", "subtotal", "tax", "discount", "total", "paymentMethod", "serviceMode"]
+    },
+    "HoldOrder": {
+      "title": "HoldOrder",
+      "description": "Represents an active held or paused cart/unsettled basket",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "timestamp": { "type": "string" },
+        "customerName": { "type": "string" },
+        "notes": { "type": "string" },
+        "serviceMode": { "type": "string", "enum": ["Dine-In", "Takeaway"] }
+      },
+      "required": ["id", "timestamp", "customerName", "serviceMode"]
+    },
+    "User": {
+      "title": "User",
+      "description": "Represents a teller or cashier account register",
+      "type": "object",
+      "properties": {
+        "username": { "type": "string" },
+        "fullName": { "type": "string" },
+        "password": { "type": "string" },
+        "role": { "type": "string", "enum": ["Admin", "Cashier"] }
+      },
+      "required": ["username", "fullName", "role"]
+    },
+    "RestaurantConfig": {
+      "title": "RestaurantConfig",
+      "description": "Global restaurant settings properties",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "address": { "type": "string" },
+        "phone": { "type": "string" },
+        "taxRate": { "type": "number" },
+        "currency": { "type": "string" },
+        "currencySymbol": { "type": "string" }
+      },
+      "required": ["name", "address", "phone", "taxRate", "currency", "currencySymbol"]
+    }
+  },
+  "firestore": {
+    "/menuItems/{itemId}": {
+      "schema": "MenuItem",
+      "description": "The menu item card definitions catalog"
+    },
+    "/orders/{orderId}": {
+      "schema": "Order",
+      "description": "Archived sale registers"
+    },
+    "/heldOrders/{heldOrderId}": {
+      "schema": "HoldOrder",
+      "description": "Active orders on pause at tables or takeaway lines"
+    },
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "Credentials database for cashier and administrator user credentials"
+    },
+    "/restaurantConfig/{configId}": {
+      "schema": "RestaurantConfig",
+      "description": "Global configuration variables"
+    }
+  }
+}

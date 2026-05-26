@@ -1,0 +1,51 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Global safety catch-all rule: DEFAULT DENY
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Helper functions for validating inputs and auth
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming(req) {
+      return req.resource.data;
+    }
+
+    // Connection test rule
+    match /test/{documentId} {
+      allow read: if true;
+    }
+
+    // 1. Menu Items Catalog Rules
+    match /menuItems/{itemId} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    // 2. Orders/Transactions sales registers Rules
+    match /orders/{orderId} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    // 3. Held/Paused Carts Rules
+    match /heldOrders/{heldOrderId} {
+      allow read, write: if true;
+    }
+
+    // 4. Cashier User Accounts credentials Rules
+    match /users/{userId} {
+      allow read, write: if true;
+    }
+
+    // 5. Global Restaurant Settings Parameters
+    match /restaurantConfig/{configId} {
+      allow read, write: if true;
+    }
+  }
+}
